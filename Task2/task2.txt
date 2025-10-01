@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intermediate HTML, CSS, JS Task</title>
+  <style>
+    /* Base Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Layout with Grid */
+    .container {
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "nav main"
+        "nav aside"
+        "footer footer";
+      grid-template-columns: 1fr 3fr;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    header {
+      grid-area: header;
+      background: #4CAF50;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav {
+      grid-area: nav;
+      background: #f2f2f2;
+      padding: 10px;
+    }
+
+    main {
+      grid-area: main;
+      background: #fff;
+      padding: 10px;
+    }
+
+    aside {
+      grid-area: aside;
+      background: #f9f9f9;
+      padding: 10px;
+    }
+
+    footer {
+      grid-area: footer;
+      background: #ddd;
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    /* To-Do List */
+    .todo-container {
+      max-width: 400px;
+    }
+
+    .todo-container input,
+    .todo-container button {
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .todo-container ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .todo-container li {
+      padding: 8px;
+      background: #e0e0e0;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-areas:
+          "header"
+          "nav"
+          "main"
+          "aside"
+          "footer";
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>HTML, CSS, JS Intermediate Project</h1>
+    </header>
+
+    <nav>
+      <h2>Navigation</h2>
+      <ul>
+        <li><a href="#form">Contact Form</a></li>
+        <li><a href="#todo">To-Do List</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="form">
+        <h2>Contact Form</h2>
+        <form class="contact-form">
+          <label>Name:
+            <input type="text" name="name" required>
+          </label>
+          <label>Email:
+            <input type="email" name="email" required>
+          </label>
+          <label>Message:
+            <textarea name="message" required></textarea>
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+
+    <aside>
+      <section id="todo">
+        <h2>To-Do List</h2>
+        <div class="todo-container">
+          <input type="text" id="taskInput" placeholder="Enter a task">
+          <button onclick="addTask()">Add Task</button>
+          <ul id="taskList"></ul>
+        </div>
+      </section>
+    </aside>
+
+    <footer>
+      <p>© 2025 All Rights Reserved</p>
+    </footer>
+  </div>
+
+  <script>
+    // JavaScript Form Validation
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+      const email = e.target.email.value;
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        e.preventDefault();
+      }
+    });
+
+    // To-Do List Logic
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const taskList = document.getElementById('taskList');
+
+      const task = taskInput.value.trim();
+      if (task === '') return;
+
+      const li = document.createElement('li');
+      li.textContent = task;
+
+      // Click to remove
+      li.addEventListener('click', () => li.remove());
+
+      taskList.appendChild(li);
+      taskInput.value = '';
+    }
+  </script>
+</body>
+</html>
